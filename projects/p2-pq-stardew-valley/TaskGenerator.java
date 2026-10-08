@@ -6,6 +6,7 @@ import java.util.Random;
  * @author Riley Cowan
  */
 public class TaskGenerator implements TaskGeneratorInterface {
+
     private final double probability;
     private final Random rand;
     private int currentEnergyStorage;
@@ -41,8 +42,15 @@ public class TaskGenerator implements TaskGeneratorInterface {
     }
 
     @Override
-    public Task getNewTask(int hourCreated, TaskInterface.TaskType taskType, String taskDescription) {
-        return new Task(hourCreated, taskType, taskDescription);
+    public Task getNewTask(int hourCreated,
+                           TaskInterface.TaskType taskType,
+                           String taskDescription) {
+
+        return new Task(
+                hourCreated,
+                taskType,
+                taskDescription
+        );
     }
 
     @Override
@@ -72,6 +80,7 @@ public class TaskGenerator implements TaskGeneratorInterface {
 
     @Override
     public int getUnlucky(Task task, double unluckyProbability) {
+
         if (task == null) {
             return SURVIVED;
         }
@@ -80,12 +89,15 @@ public class TaskGenerator implements TaskGeneratorInterface {
 
         if (type == Task.TaskType.MINING
                 && unluckyProbability < type.getDyingProbability()) {
+
             currentEnergyStorage = currentEnergyStorage / 4;
+
             return DEATH;
         }
 
         if (unluckyProbability < type.getPassingOutProbability()) {
             currentEnergyStorage = currentEnergyStorage / 2;
+
             return PASSED_OUT;
         }
 
@@ -101,24 +113,67 @@ public class TaskGenerator implements TaskGeneratorInterface {
      */
     @Override
     public String toString(Task task, Task.TaskType taskType) {
-        if(taskType == Task.TaskType.MINING) {
-            return "     Mining " + task.getTaskDescription() + " at " + currentEnergyStorage + " energy points (Priority:" + task.getPriority() +")";
+
+        if (taskType == Task.TaskType.MINING) {
+            return "     Mining "
+                    + task.getTaskDescription()
+                    + " at "
+                    + currentEnergyStorage
+                    + " energy points (Priority:"
+                    + task.getPriority()
+                    + ")";
         }
-        if(taskType == Task.TaskType.FISHING) {
-            return "     Fishing " + task.getTaskDescription() + " at " + currentEnergyStorage + " energy points (Priority:" + task.getPriority() +")";
+
+        if (taskType == Task.TaskType.FISHING) {
+            return "     Fishing "
+                    + task.getTaskDescription()
+                    + " at "
+                    + currentEnergyStorage
+                    + " energy points (Priority:"
+                    + task.getPriority()
+                    + ")";
         }
-        if(taskType == Task.TaskType.FARM_MAINTENANCE) {
-            return "     Farm Maintenance " + task.getTaskDescription() + " at " + currentEnergyStorage + " energy points (Priority:" + task.getPriority() +")";
+
+        if (taskType == Task.TaskType.FARM_MAINTENANCE) {
+            return "     Farm Maintenance "
+                    + task.getTaskDescription()
+                    + " at "
+                    + currentEnergyStorage
+                    + " energy points (Priority:"
+                    + task.getPriority()
+                    + ")";
         }
-        if(taskType == Task.TaskType.FORAGING) {
-            return "     Foraging " + task.getTaskDescription() + " at " + currentEnergyStorage + " energy points (Priority:" + task.getPriority() +")";
+
+        if (taskType == Task.TaskType.FORAGING) {
+            return "     Foraging "
+                    + task.getTaskDescription()
+                    + " at "
+                    + currentEnergyStorage
+                    + " energy points (Priority:"
+                    + task.getPriority()
+                    + ")";
         }
-        if(taskType == Task.TaskType.FEEDING) {
-            return "     Feeding " + task.getTaskDescription() + " at " + currentEnergyStorage + " energy points (Priority:" + task.getPriority() +")";
+
+        if (taskType == Task.TaskType.FEEDING) {
+            return "     Feeding "
+                    + task.getTaskDescription()
+                    + " at "
+                    + currentEnergyStorage
+                    + " energy points (Priority:"
+                    + task.getPriority()
+                    + ")";
         }
-        if(taskType == Task.TaskType.SOCIALIZING) {
-            return "     Socializing " + task.getTaskDescription() + " at " + currentEnergyStorage + " energy points (Priority:" + task.getPriority() +")";
+
+        if (taskType == Task.TaskType.SOCIALIZING) {
+            return "     Socializing "
+                    + task.getTaskDescription()
+                    + " at "
+                    + currentEnergyStorage
+                    + " energy points (Priority:"
+                    + task.getPriority()
+                    + ")";
         }
+
         return "nothing to see here...";
     }
 }
