@@ -4,6 +4,7 @@
  * @author Riley Cowan
  */
 public class Task implements TaskInterface, Comparable<Task> {
+
     private int priority;
     private final TaskType taskType;
     private final int hourCreated;
@@ -17,7 +18,10 @@ public class Task implements TaskInterface, Comparable<Task> {
      * @param taskType type of task
      * @param taskDescription description of the task
      */
-    public Task(int hourCreated, TaskType taskType, String taskDescription) {
+    public Task(int hourCreated,
+                TaskType taskType,
+                String taskDescription) {
+
         this(hourCreated, taskType, taskDescription, 0);
     }
 
@@ -29,14 +33,24 @@ public class Task implements TaskInterface, Comparable<Task> {
      * @param taskType type of task
      * @param taskDescription description of the task
      */
-    public Task(int priority, int hourCreated, TaskType taskType, String taskDescription) {
+    public Task(int priority,
+                int hourCreated,
+                TaskType taskType,
+                String taskDescription) {
+
         this(hourCreated, taskType, taskDescription, priority);
     }
 
-    private Task(int hourCreated, TaskType taskType, String taskDescription, int priority) {
+    private Task(int hourCreated,
+                 TaskType taskType,
+                 String taskDescription,
+                 int priority) {
+
         if (taskType == null) {
-            throw new IllegalArgumentException("Task type cannot be null.");
+            throw new IllegalArgumentException(
+                    "Task type cannot be null.");
         }
+
         this.priority = priority;
         this.taskType = taskType;
         this.hourCreated = hourCreated;
@@ -89,8 +103,10 @@ public class Task implements TaskInterface, Comparable<Task> {
     }
 
     /**
-     * Compares tasks by priority, then by creation hour. A higher priority
-     * is larger, and for equal priorities an earlier task is larger.
+     * Compares tasks by priority, then by creation hour.
+     *
+     * Higher priority is considered larger.
+     * For equal priorities, an earlier task is larger.
      *
      * @param other task to compare with
      * @return positive if this task is larger
@@ -100,15 +116,27 @@ public class Task implements TaskInterface, Comparable<Task> {
         if (other == null) {
             throw new NullPointerException();
         }
-        int priorityComparison = Integer.compare(this.priority, other.priority);
+
+        int priorityComparison =
+                Integer.compare(this.priority, other.priority);
+
         if (priorityComparison != 0) {
             return priorityComparison;
         }
-        return Integer.compare(other.hourCreated, this.hourCreated);
+
+        return Integer.compare(
+                other.hourCreated,
+                this.hourCreated
+        );
     }
 
     @Override
     public String toString() {
-        return taskType.toString() + " " + taskDescription + " at Hour: " + hourCreated + ":00";
+        return taskType.toString()
+                + " "
+                + taskDescription
+                + " at Hour: "
+                + hourCreated
+                + ":00";
     }
 }
