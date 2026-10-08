@@ -26,9 +26,12 @@ public class MaxHeap {
         if (tasks == null) {
             throw new IllegalArgumentException("Tasks cannot be null.");
         }
+
         heap = new Task[Math.max(DEFAULT_CAPACITY, tasks.length)];
         heapSize = tasks.length;
+
         System.arraycopy(tasks, 0, heap, 0, tasks.length);
+
         buildMaxHeap();
     }
 
@@ -37,10 +40,13 @@ public class MaxHeap {
         int left = 2 * index + 1;
         int right = 2 * index + 2;
 
-        if (left < heapSize && heap[left].compareTo(heap[largest]) > 0) {
+        if (left < heapSize &&
+                heap[left].compareTo(heap[largest]) > 0) {
             largest = left;
         }
-        if (right < heapSize && heap[right].compareTo(heap[largest]) > 0) {
+
+        if (right < heapSize &&
+                heap[right].compareTo(heap[largest]) > 0) {
             largest = right;
         }
 
@@ -58,7 +64,9 @@ public class MaxHeap {
 
     private void grow() {
         Task[] larger = new Task[heap.length * 2];
+
         System.arraycopy(heap, 0, larger, 0, heapSize);
+
         heap = larger;
     }
 
@@ -71,6 +79,7 @@ public class MaxHeap {
         if (isEmpty()) {
             throw new HeapException("Heap is empty.");
         }
+
         return heap[0];
     }
 
@@ -85,13 +94,16 @@ public class MaxHeap {
         }
 
         Task maximum = heap[0];
+
         heap[0] = heap[heapSize - 1];
         heap[heapSize - 1] = null;
+
         heapSize--;
 
         if (heapSize > 0) {
             heapify(0);
         }
+
         return maximum;
     }
 
@@ -104,18 +116,22 @@ public class MaxHeap {
         if (task == null) {
             throw new IllegalArgumentException("Task cannot be null.");
         }
+
         if (heapSize == heap.length) {
             grow();
         }
 
         int index = heapSize;
+
         heap[heapSize++] = task;
 
         while (index > 0) {
             int parent = (index - 1) / 2;
+
             if (heap[index].compareTo(heap[parent]) <= 0) {
                 break;
             }
+
             swap(index, parent);
             index = parent;
         }
@@ -131,19 +147,25 @@ public class MaxHeap {
         if (index < 0 || index >= heapSize) {
             throw new IndexOutOfBoundsException("Invalid heap index.");
         }
+
         if (task == null) {
             throw new IllegalArgumentException("Task cannot be null.");
         }
+
         if (task.compareTo(heap[index]) < 0) {
-            throw new IllegalArgumentException("New task has a smaller key.");
+            throw new IllegalArgumentException(
+                    "New task has a smaller key.");
         }
 
         heap[index] = task;
+
         while (index > 0) {
             int parent = (index - 1) / 2;
+
             if (heap[index].compareTo(heap[parent]) <= 0) {
                 break;
             }
+
             swap(index, parent);
             index = parent;
         }
@@ -176,14 +198,19 @@ public class MaxHeap {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
+
         result.append("[");
+
         for (int i = 0; i < heapSize; i++) {
             if (i > 0) {
                 result.append(", ");
             }
+
             result.append(heap[i]);
         }
+
         result.append("]");
+
         return result.toString();
     }
 }
